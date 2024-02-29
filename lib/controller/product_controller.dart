@@ -43,9 +43,7 @@ class ProductController extends GetxController {
             .ref('product/')
             .child('${product.owner}_${product.productName}');
         final metadata = SettableMetadata(contentType: 'image/jpeg');
-        UploadTask uploadTask =
-            reference.putData(product.selectedImage!, metadata);
-        await uploadTask.whenComplete(() => null);
+        await reference.putData(product.selectedImage!, metadata);
         final downloadUrl = await reference.getDownloadURL();
         await FirebaseFirestore.instance.collection('products').add({
           'owner': product.owner,
